@@ -1,0 +1,74 @@
+<!--
+  Generated template for the MissionDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>任务编号#{{mission.id}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="detailForm" (submit)="saveForm($event)">
+
+    <ion-item>
+      <ion-label floating>灾情类型</ion-label>
+      <ion-select forControlName="type_field" (ionChange)="changeType($event)">
+        <ion-option [value] = "'electric'" [selected]="mission.type == 'electric'">电力</ion-option>
+        <ion-option [value] = "'firstaid'" [selected]="mission.type == 'firstaid'">急救</ion-option>
+        <ion-option [value] = "'firefighting'" [selected]="mission.type == 'firefighting'">消防</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>灾情等级</ion-label>
+      <ion-select forControlName="level_field" (ionChange)="changeLevel($event)">
+        <ion-option [value]=1 [selected]="mission.level == 1">一级</ion-option>
+        <ion-option [value]=2 [selected]="mission.level == 2">二级</ion-option>
+        <ion-option [value]=3 [selected]="mission.level == 3">三级</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>现场描述</ion-label>
+      <ion-textarea formControlName="desc_field" value={{mission.desc}}></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>发现时间</ion-label>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" forControllerName="time_field" [(ngModel)]="mission.time" [ngModelOptions]="{standalone: true}"></ion-datetime>
+    </ion-item>
+    <!-- <ion-card color="danger" *ngIf="validFrom.invalid && (validFrom.dirty || validFrom.touched) && validFrom.errors['required']">
+        <ion-card-content>
+            Please define the valid from date
+        </ion-card-content>
+    </ion-card>  -->
+    <ion-item>
+      <ion-label floating>地理位置</ion-label>
+      <ion-input formControlName="loc_field" type="text" value={{mission.loc.lat}},{{mission.loc.lng}}></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>是否完成</ion-label>
+      <ion-toggle formControlName="isFixed_field" [(ngModel)]=mission.isFixed></ion-toggle>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>人员伤亡</ion-label>
+      <ion-input formControlName="casualties_field" type="text" value={{mission.casualties}}></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <ion-card-header>
+          现场图片
+        </ion-card-header>
+        <ion-card-content (click)="zoomImage(mission.image)">
+          <!-- Add card content here! -->
+          <img src={{mission.image}}/>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    <button ion-button color="favorite" full>提交</button>
+  </form>
+
+</ion-content>

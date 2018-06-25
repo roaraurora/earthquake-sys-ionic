@@ -1,17 +1,31 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Home</ion-title>
+    <button ion-button menuToggle start>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>earthquake-sys</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+  <div #map id="map_container"></div>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="puppies" (ionSelect)="loadChart1()">
+        Puppies
+      </ion-segment-button>
+      <ion-segment-button value="kittens" (ionSelect)="loadChart2()">
+        Kittens
+      </ion-segment-button>
+      <ion-segment-button value="ducklings" (ionSelect)="loadChart3()">
+        Ducklings
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <div #chartContainer1 id='chart' [ngClass]="{'hidden':!chart1.isShow}"></div>
+  <div #chartContainer2 id='chart' [ngClass]="{'hidden':!chart2.isShow}"></div>
+  <div #chartContainer3 id='chart' [ngClass]="{'hidden':!chart3.isShow}"></div>
+
 </ion-content>
