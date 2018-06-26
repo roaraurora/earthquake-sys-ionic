@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle start>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="md-person"></ion-icon>
     </button>
     <ion-title>earthquake-sys</ion-title>
   </ion-navbar>
@@ -15,13 +15,18 @@
   </ion-refresher>
 
   <div #map id="map_container"></div>
-
+  <button id="halfButton" ion-button large full (click)="openDetail()">
+    灾情上报
+  </button>
   <ion-list>
-    <button id="missionItem" ion-item *ngFor="let mission of missionList" (click)="openDetail(mission)">
+    <button id="missionItem" ion-item *ngFor="let mission of missionList" (click)="openDetail(mission.id)">
       <!-- 使用全局定义的样式 level color -->
-      <ion-icon name="md-information-circle" color={{getColor(mission.level)}} item-start></ion-icon>
-      ({{mission.loc.lat}},{{mission.loc.lng}}) {{mission.desc}}-{{mission.time}}
+      <ion-icon name={{getIcon()}} color={{getColor(mission.level)}} item-start></ion-icon>
+     <h3>经度:{{mission.loc.lng}},纬度:{{mission.loc.lat}}</h3>
+      <p>{{mission.desc}} - {{mission.time|date:'short'}}</p>
       <ion-icon id="fixStatus" name={{getStatuIcon(mission.isFixed)}} item-end></ion-icon>
     </button>
   </ion-list>
+
+
 </ion-content>

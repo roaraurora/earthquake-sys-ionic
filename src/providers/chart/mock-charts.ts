@@ -1,36 +1,16 @@
 import { Chart } from "./chart-object";
 
 export const CHARTS: Chart[] = [
-    {
-        type: 'pie',
-        option: {
-
-            series: {
-                type: 'pie',
-                data: [{
-                    name: 'A', value: 10
-                }, {
-                    name: 'B', value: 20
-                }, {
-                    name: 'C', value: 30
-                }]
-            }
-        },
-        isShow: true,
-        EChart:null
-    },
+    
     {
         type: 'line',
         option: {
 
-            title: {
-                text: '折线图堆叠'
-            },
             tooltip: {
                 trigger: 'axis'
             },
             legend: {
-                data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+                data: ['道路桥梁', '林木植被', '畜牧', '房屋', '其他']
             },
             grid: {
                 left: '3%',
@@ -53,31 +33,31 @@ export const CHARTS: Chart[] = [
             },
             series: [
                 {
-                    name: '邮件营销',
+                    name: '道路桥梁',
                     type: 'line',
                     stack: '总量',
                     data: [120, 132, 101, 134, 90, 230, 210]
                 },
                 {
-                    name: '联盟广告',
+                    name: '林木植被',
                     type: 'line',
                     stack: '总量',
                     data: [220, 182, 191, 234, 290, 330, 310]
                 },
                 {
-                    name: '视频广告',
+                    name: '畜牧',
                     type: 'line',
                     stack: '总量',
                     data: [150, 232, 201, 154, 190, 330, 410]
                 },
                 {
-                    name: '直接访问',
+                    name: '房屋',
                     type: 'line',
                     stack: '总量',
                     data: [320, 332, 301, 334, 390, 330, 320]
                 },
                 {
-                    name: '搜索引擎',
+                    name: '其他',
                     type: 'line',
                     stack: '总量',
                     data: [820, 932, 901, 934, 1290, 1330, 1320]

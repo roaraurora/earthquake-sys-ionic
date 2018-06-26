@@ -24,23 +24,10 @@ export class MissionDetailPage {
     private photoViewer: PhotoViewer,
     private events: Events) {
     // this.navCtrl.setRoot()
-    this.mission = this.navParams.get('mission')
-    if (this.mission == null) {
-      this.mission = new Mission(
-        1000,
-        'electric',
-        { lat: -28.024, lng: 140.887 },
-        1,
-        "变压器损坏",
-        new Date().toISOString(),
-        false,
-        "/assets/imgs/view.jpg",
-        "一人受伤，一人死亡", );
-    }
-    this.date = this.mission.time;
+    let id = this.navParams.get('id');
+    this.mission = this.missionProvider.getMissionByid(id);
     this.detailForm = this.formBuilder.group(
       {
-        time_field: ['', Validators.required],
         desc_field: ['', Validators.required],
         loc_field: ['', Validators.required],
         isFixed_field: ['', Validators.required],
@@ -55,17 +42,18 @@ export class MissionDetailPage {
   saveForm(event): void {
     event.preventDefault();
     console.log("save form: " +
-      this.detailForm.value.time_field + ' ' +
+      this.mission.time + ' ' +
       this.detailForm.value.desc_field + ' ' +
       this.detailForm.value.loc_field + ' ' +
       this.detailForm.value.isFixed_field + ' ' +
       this.detailForm.value.casualties_field);
-    this.mission.time = this.detailForm.value.time_field;
     this.mission.desc = this.detailForm.value.desc_field;
-    this.mission.loc = this.detailForm.value.loc_field;
+    this.mission.loc.lat = parseFloat(this.detailForm.value.loc_field.split(',', 2)[0]);
+    this.mission.loc.lng = parseFloat(this.detailForm.value.loc_field.split(',', 2)[1]);
     this.mission.isFixed = this.detailForm.value.isFixed_field;
     this.mission.casualties = this.detailForm.value.casualties_field;
-    this.missionProvider.setMission(this.mission);
+    let result: boolean = this.missionProvider.setMission(this.mission);
+    this.events.publish('count_change', { add_flag: result })
     this.goBack({ statu: 1 });
   }
 
@@ -75,8 +63,9 @@ export class MissionDetailPage {
   }
 
   goBack(param: any = null) {
-    this.navCtrl.pop().then(() =>{
-      this.events.publish('success_events',{statu:1})
+    this.navCtrl.pop().then(() => {
+      console.warn("piblish success_events with status: " + param.statu);
+      this.events.publish('success_events', param)
     })
   }
   changeType(value: any) {

@@ -37,7 +37,7 @@
     </ion-item>
     <ion-item>
       <ion-label floating>发现时间</ion-label>
-      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" forControllerName="time_field" [(ngModel)]="mission.time" [ngModelOptions]="{standalone: true}"></ion-datetime>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="mission.time" [ngModelOptions]="{standalone: true}" (ionChange)="changeTime($event)"></ion-datetime>
     </ion-item>
     <!-- <ion-card color="danger" *ngIf="validFrom.invalid && (validFrom.dirty || validFrom.touched) && validFrom.errors['required']">
         <ion-card-content>

@@ -1,6 +1,6 @@
 <ion-tabs>
-  <ion-tab [root]="homePage.root" tabTitle="Home"></ion-tab>
-  <ion-tab [root]="electricPage.root" [rootParams]="electricPage.param" tabBadge={{electricPage.count}} tabTitle="Electric"></ion-tab>
-  <ion-tab [root]="firstaidPage.root" [rootParams]="firstaidPage.param" tabBadge={{firstaidPage.count}} tabTitle="FirstAid"></ion-tab>
-  <ion-tab [root]="firefightingPage.root" [rootParams]="firefightingPage.param" tabBadge={{firefightingPage.count}} tabTitle="firefighting"></ion-tab>
+  <ion-tab [root]="homePage.root" tabTitle="灾情"></ion-tab>
+  <ion-tab [root]="electricPage.root" [rootParams]="electricPage.param" tabBadge={{electricPage.count}} tabBadgeStyle="danger" tabTitle="电力"></ion-tab>
+  <ion-tab [root]="firstaidPage.root" [rootParams]="firstaidPage.param" tabBadge={{firstaidPage.count}} tabTitle="急救"></ion-tab>
+  <ion-tab [root]="firefightingPage.root" [rootParams]="firefightingPage.param" tabBadge={{firefightingPage.count}} tabTitle="消防"></ion-tab>
 </ion-tabs>

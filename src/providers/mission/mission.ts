@@ -23,14 +23,37 @@ export class MissionProvider {
     });
     return missionByType;
   }
-  setMission(mission: Mission) {
+  getMissionByid(id: number): Mission {
+    let mission = new Mission(MISSIONS.length + 1000,//should be manage by db
+      null,
+      { lat: -33.8688, lng: 151.2093 },//should be gernerate by native service
+      null,
+      null,
+      new Date().toISOString(),
+      false,
+      "/assets/imgs/view.jpg",//should be null and allow user shot for photo
+      null);
+    MISSIONS.forEach(element => {
+      if (element.id == id) {
+        console.warn("get mission by id :" + id + typeof (id))
+        mission = element;
+      }
+    })
+    return mission;
+  }
+  setMission(mission: Mission):boolean {
+    let found_flag = false;
     MISSIONS.forEach(element => {
       if (element.id == mission.id) {
         element = mission;
-      } else {
-        MISSIONS.push(mission);
-      }
+        found_flag = true;
+        return false; //modify
+      } 
     });
+    if(!found_flag){
+      MISSIONS.push(mission);
+      return true; //add new
+    }
   }
   countByType(type: string): number {
     let count = 0;

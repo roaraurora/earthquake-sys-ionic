@@ -1,16 +1,47 @@
 <ion-menu [content]="content">
     <ion-header>
         <ion-toolbar>
-            <ion-title>Menu</ion-title>
+            <ion-title>
+                <button ion-button clear large color="dark">
+                    <ion-icon name="ios-eye"></ion-icon>
+                </button>
+            </ion-title>
         </ion-toolbar>
     </ion-header>
 
     <ion-content>
         <ion-list>
-            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-                {{p.title}}
-            </button>
+            <ion-avatar>
+                <img src="/assets/imgs/avartar.jpg" alt="Morty">
+                <p>
+                    <strong>Morty</strong>
+                </p>
+            </ion-avatar>
         </ion-list>
+        <ion-item>
+            <button ion-button icon-start clear large color="dark">
+                <ion-icon name="ios-bookmark"></ion-icon>
+                行政等级
+            </button>
+        </ion-item>
+        <ion-item>
+            <button ion-button icon-start clear large color="dark">
+                <ion-icon name="md-globe"></ion-icon>
+                所辖区域
+            </button>
+        </ion-item>
+        <ion-item>
+            <button ion-button icon-start clear large color="dark">
+                <ion-icon name="ios-person"></ion-icon>
+                职称
+            </button>
+        </ion-item>
+        <ion-item>
+            <button ion-button icon-start clear large color="dark">
+                <ion-icon name="ios-settings"></ion-icon>
+                设置
+            </button>
+        </ion-item>
     </ion-content>
 
 </ion-menu>

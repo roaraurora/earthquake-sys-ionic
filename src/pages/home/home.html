@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle start>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon name="md-person"></ion-icon>
     </button>
     <ion-title>earthquake-sys</ion-title>
   </ion-navbar>
@@ -12,18 +12,17 @@
 
   <ion-toolbar>
     <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="puppies" (ionSelect)="loadChart1()">
-        Puppies
+      <ion-segment-button value="pie" (ionSelect)="loadChart1()">
+        灾情统计
       </ion-segment-button>
-      <ion-segment-button value="kittens" (ionSelect)="loadChart2()">
-        Kittens
+      <ion-segment-button value="line" (ionSelect)="loadChart2()">
+        财产损失
       </ion-segment-button>
-      <ion-segment-button value="ducklings" (ionSelect)="loadChart3()">
-        Ducklings
+      <ion-segment-button value="bar" (ionSelect)="loadChart3()">
+        余震情况
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
-
   <div #chartContainer1 id='chart' [ngClass]="{'hidden':!chart1.isShow}"></div>
   <div #chartContainer2 id='chart' [ngClass]="{'hidden':!chart2.isShow}"></div>
   <div #chartContainer3 id='chart' [ngClass]="{'hidden':!chart3.isShow}"></div>

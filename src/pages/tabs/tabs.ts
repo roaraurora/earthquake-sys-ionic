@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { ElectricPage } from '../electric/electric';
 import { FirstaidPage } from '../first-aid/firstaid';
 import { HomePage } from '../home/home';
@@ -16,27 +16,43 @@ export class TabsPage {
   firstaidPage: any;
   firefightingPage: any;
 
-  home=HomePage;
+  home = HomePage;
 
-  constructor(private missionProvider: MissionProvider) {
+  constructor(private missionProvider: MissionProvider,
+    private events: Events,
+    private changeDetectorRef: ChangeDetectorRef) {
     this.homePage = {
       root: HomePage,
     };
     this.electricPage = {
       root: ElectricPage,
       param: { type: 'electric' },
-      count: this.missionProvider.countByType('electric'),
     };
     this.firstaidPage = {
-      root: FirstaidPage,
+      root: ElectricPage,
       param: { type: 'firstaid' },
-      count: this.missionProvider.countByType('fisrtaid'),
     };
     this.firefightingPage = {
-      root: FireFightingPage,
-      param: 'firefighting',
-      count: this.missionProvider.countByType('firefighting'),
+      root: ElectricPage,
+      param: { type: 'firefighting' },
     }
-    console.error("count: "+this.electricPage.count)
+    this.getCount();
+    console.warn("count: " + this.electricPage.count)
+    this.events.subscribe('count_change', (params) => {
+      if (params.add_flag) {
+        this.getCount();
+        this.changeDetectorRef.detectChanges();
+      }
+    })
   }
+  getCount() {
+    // 得到数字角标
+    this.electricPage.count = this.missionProvider.countByType('electric');
+    this.firstaidPage.count = this.missionProvider.countByType('firstaid');
+    this.firefightingPage.count = this.missionProvider.countByType('firefighting')
+  }
+  ionViewWillUnload() {
+    this.events.unsubscribe('count_change');
+  }
+
 }
