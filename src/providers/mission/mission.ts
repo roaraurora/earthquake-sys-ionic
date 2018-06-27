@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Events } from 'ionic-angular';
 import { Mission } from './mission-object';
 import { MISSIONS } from './mock-missions';
 
@@ -11,7 +12,7 @@ import { MISSIONS } from './mock-missions';
 @Injectable()
 export class MissionProvider {
 
-  constructor() {
+  constructor(private events: Events) {
     console.log('Hello MissionProvider Provider');
   }
   getMissionsByType(type: string): Array<Mission> {
@@ -41,19 +42,16 @@ export class MissionProvider {
     })
     return mission;
   }
-  setMission(mission: Mission):boolean {
-    let found_flag = false;
+  setMission(mission: Mission):number{
     MISSIONS.forEach(element => {
       if (element.id == mission.id) {
         element = mission;
-        found_flag = true;
-        return false; //modify
-      } 
+        return 1;
+      }
     });
-    if(!found_flag){
-      MISSIONS.push(mission);
-      return true; //add new
-    }
+    MISSIONS.push(mission);
+    this.pubMissionChange();//add
+    return 2;
   }
   countByType(type: string): number {
     let count = 0;
@@ -63,5 +61,8 @@ export class MissionProvider {
       }
     });
     return count
+  }
+  pubMissionChange(){
+    this.events.publish('change')
   }
 }

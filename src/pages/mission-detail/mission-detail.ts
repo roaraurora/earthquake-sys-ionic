@@ -52,9 +52,8 @@ export class MissionDetailPage {
     this.mission.loc.lng = parseFloat(this.detailForm.value.loc_field.split(',', 2)[1]);
     this.mission.isFixed = this.detailForm.value.isFixed_field;
     this.mission.casualties = this.detailForm.value.casualties_field;
-    let result: boolean = this.missionProvider.setMission(this.mission);
-    this.events.publish('count_change', { add_flag: result })
-    this.goBack({ statu: 1 });
+    let status = this.missionProvider.setMission(this.mission);
+    this.goBack({ statu: status });
   }
 
   zoomImage(src: string): void {

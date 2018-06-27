@@ -1,5 +1,5 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController,LoadingController } from 'ionic-angular';
+import { Component, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { NavController, LoadingController, Events } from 'ionic-angular';
 import { ChartProvider } from "../../providers/chart/chart";
 
 declare var google;
@@ -20,18 +20,20 @@ export class HomePage {
   chart2: any;
   chart3: any;
   pet: string = 'line';
-  loader:any;
+  loader: any;
 
   constructor(public navCtrl: NavController,
     private chartProvider: ChartProvider,
-    private loadingController:LoadingController,) {
+    private loadingController: LoadingController,
+    private changeDetectorRef: ChangeDetectorRef,
+    private events: Events) {
     this.presentLoading();
     this.chart1 = this.chartProvider.getChart('pie');
     this.chart2 = this.chartProvider.getChart('line');
     this.chart3 = this.chartProvider.getChart('bar');
   }
 
-  presentLoading(){
+  presentLoading() {
     this.loader = this.loadingController.create({
       content: "Please wait...",
       duration: 3000
@@ -78,6 +80,8 @@ export class HomePage {
 
   loadChart1() {
     this.setShow('pie');
+    // 此处刷新可以简单实现为重新获取数据
+    this.chart1 = this.chartProvider.getChart('pie');
     let chartContainer = this.chartElement1.nativeElement;
     this.chart1.EChart = echarts.init(chartContainer);
     this.chart1.EChart.setOption(this.chart1.option);
@@ -99,7 +103,7 @@ export class HomePage {
     this.chart3.EChart.setOption(this.chart3.option);
     // console.warn("loadChart3: " + this.chart3.EChart)
   }
-  
+
   ionViewDidEnter() {
     this.loader.dismiss();
   }

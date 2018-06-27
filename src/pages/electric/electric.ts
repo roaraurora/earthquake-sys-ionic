@@ -148,7 +148,6 @@ export class ElectricPage {
       position: 'top',
       cssClass: "color:blue"
     });
-    this.reload();
     toast.present();
   }
 
@@ -176,8 +175,8 @@ export class ElectricPage {
     this.loadMap();
     console.log("get missions by type" + this.type + " - total: " + this.missionList.length);
 
-    // 检测dom有没有改变
-    this.changeDetectorRef.detectChanges();
+    // 检测dom有没有改变 很奇怪 这函数到底用来干嘛
+    // this.changeDetectorRef.detectChanges();
   }
 
   ionViewWillUnload() {

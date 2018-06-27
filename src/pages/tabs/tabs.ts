@@ -38,11 +38,9 @@ export class TabsPage {
     }
     this.getCount();
     console.warn("count: " + this.electricPage.count)
-    this.events.subscribe('count_change', (params) => {
-      if (params.add_flag) {
+    this.events.subscribe('change', () => {
         this.getCount();
-        this.changeDetectorRef.detectChanges();
-      }
+        // this.changeDetectorRef.detectChanges();
     })
   }
   getCount() {
@@ -52,7 +50,7 @@ export class TabsPage {
     this.firefightingPage.count = this.missionProvider.countByType('firefighting')
   }
   ionViewWillUnload() {
-    this.events.unsubscribe('count_change');
+    this.events.unsubscribe('change');
   }
 
 }
